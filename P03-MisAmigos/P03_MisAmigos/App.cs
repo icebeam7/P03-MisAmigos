@@ -5,24 +5,23 @@ using System.Text;
 
 using Xamarin.Forms;
 
+using P03_MisAmigos.Clases;
+using P03_MisAmigos.Paginas;
+
 namespace P03_MisAmigos
 {
 	public class App : Application
 	{
-		public App ()
+        public static BaseDatos BD;
+
+        public App ()
 		{
-			// The root page of your application
-			MainPage = new ContentPage {
-				Content = new StackLayout {
-					VerticalOptions = LayoutOptions.Center,
-					Children = {
-						new Label {
-							HorizontalTextAlignment = TextAlignment.Center,
-							Text = "Welcome to Xamarin Forms!"
-						}
-					}
-				}
-			};
+            string db = "amigos.db3";
+            string ruta = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), db);
+            BD = new BaseDatos(ruta);
+
+            // The root page of your application
+            MainPage = new NavigationPage(new PaginaListaAmigos());
 		}
 
 		protected override void OnStart ()
